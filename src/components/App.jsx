@@ -20,13 +20,44 @@ function App() {
       isCompleted: false,
     },
   ]);
+
+  const [todoInput, setTodoInput] = useState('');
+  const [idForTodo, setIdForTodo] = useState(4);
+
+  const addTodo = event => {
+    event.preventDefault();
+
+    if (todoInput.trim().length === 0) return;
+
+    setTodos([
+      ...todos,
+      {
+        id: idForTodo,
+        title: todoInput,
+        isCompleted: false,
+      },
+    ]);
+    setTodoInput('');
+    setIdForTodo(prevId => prevId + 1);
+  };
+
+  const handleOnChangeInput = event => {
+    setTodoInput(event.target.value);
+  };
+
+  const deleteTodo = id => {
+    setTodos([...todos].filter(todo => todo.id !== id));
+  };
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
         <h2>Todo App</h2>
-        <form action="#">
+        <form action="#" onSubmit={addTodo}>
           <input
             type="text"
+            value={todoInput}
+            onChange={handleOnChangeInput}
             className="todo-input"
             placeholder="What do you need to do?"
           />
@@ -39,7 +70,7 @@ function App() {
                 <input type="checkbox" />
                 <span className="todo-item-label">{todo.title}</span>
               </div>
-              <button className="x-button">
+              <button onClick={() => deleteTodo(todo.id)} className="x-button">
                 <svg
                   className="x-button-icon"
                   fill="none"
