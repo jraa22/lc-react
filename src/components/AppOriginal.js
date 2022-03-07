@@ -1,24 +1,24 @@
-import { useState } from "react";
-import Another from "./Another";
-import logo from "./logo.svg";
-import "./App.css";
+import { useState } from 'react';
+import Another from './Another';
+import logo from '../logo.svg';
+import '../App.css';
 
 function App() {
   const increment = () => {
-    setCount((prevCount) => prevCount + 1);
+    setCount(prevCount => prevCount + 1);
   };
 
   const decrement = () => {
-    setCount((prevCount) => prevCount - 1);
+    setCount(prevCount => prevCount - 1);
   };
 
   const [count, setCount] = useState(0);
 
   const someStyle = {
-    background: "red",
-    color: "white",
-    fontSize: "28px",
-    fontWeight: "bold",
+    background: 'red',
+    color: 'white',
+    fontSize: '28px',
+    fontWeight: 'bold',
   };
 
   return (
