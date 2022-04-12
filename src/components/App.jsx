@@ -103,6 +103,29 @@ function App() {
     return todos.filter(todo => !todo.isCompleted).length;
   };
 
+  const clearCompleted = () => {
+    setTodos([...todos].filter(todo => !todo.isCompleted));
+  };
+
+  const completeAllTodos = () => {
+    const updatedTodos = todos.map(todo => {
+      todo.isCompleted = true;
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  };
+
+  const todosFiltered = filter => {
+    if (filter === 'all') {
+      return todos;
+    } else if (filter === 'active') {
+      return todos.filter(todo => !todo.isCompleted);
+    } else if (filter === 'completed') {
+      return todos.filter(todo => todo.isCompleted);
+    }
+  };
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
@@ -118,6 +141,9 @@ function App() {
             cancelEdit={cancelEdit}
             deleteTodo={deleteTodo}
             remaining={remaining}
+            clearCompleted={clearCompleted}
+            completeAllTodos={completeAllTodos}
+            todosFiltered={todosFiltered}
           />
         ) : (
           <NoTodos />
