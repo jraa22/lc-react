@@ -8,6 +8,7 @@ TodoList.propTypes = {
   updateTodo: PropTypes.func.isRequired,
   cancelEdit: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
+  remaining: PropTypes.func.isRequired,
 };
 
 function TodoList(props) {
