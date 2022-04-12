@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import NoTodos from './NoTodos';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
@@ -28,6 +28,8 @@ function App() {
   ]);
 
   const [idForTodo, setIdForTodo] = useState(4);
+  const [name, setName] = useState('');
+  const nameInputEl = useRef(null);
 
   const addTodo = todo => {
     setTodos([
@@ -99,9 +101,13 @@ function App() {
     setTodos(updatedTodos);
   };
 
-  const remaining = () => {
+  const remainingCalculation = () => {
+    console.log('Calculating remainings todos. Slow operation...');
+    for (let index = 0; index < 2000000000; index++) {}
     return todos.filter(todo => !todo.isCompleted).length;
   };
+
+  const remaining = useMemo(remainingCalculation, [todos]);
 
   const clearCompleted = () => {
     setTodos([...todos].filter(todo => !todo.isCompleted));
@@ -126,10 +132,34 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    //console.log('use effect running');
+    nameInputEl.current.focus();
+
+    return function cleanup() {
+      //console.log('cleaning up');
+    };
+  }, []);
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
         <h2>Todo App</h2>
+        <div className="name-container">
+          <h2>What is your name?</h2>
+
+          <form action="#">
+            <input
+              type="text"
+              ref={nameInputEl}
+              className="todo-input"
+              placeholder="What is your name"
+              value={name}
+              onChange={event => setName(event.target.value)}
+            />
+          </form>
+          {name && <p className="name-label">Hello {name}</p>}
+        </div>
         <TodoForm addTodo={addTodo} />
 
         {todos.length > 0 ? (
