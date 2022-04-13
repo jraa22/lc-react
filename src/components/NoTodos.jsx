@@ -10,7 +10,7 @@ export default function NoTodos() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g id="undraw_add_tasks_re_s5yj 1" clip-path="url(#clip0_101_2)">
+        <g id="undraw_add_tasks_re_s5yj 1" clipPath="url(#clip0_101_2)">
           <path
             id="Vector"
             d="M173.614 108.633C173.633 108.576 175.487 102.83 172.206 97.7025L171.871 97.9176C175.047 102.881 173.255 108.451 173.236 108.507L173.614 108.633Z"
