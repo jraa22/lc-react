@@ -4,6 +4,7 @@ import TodoItemsRemaining from './TodoItemsRemaining';
 import TodoClearCompleted from './TodoClearCompleted';
 import TodoCompleteAll from './TodoCompleteAll';
 import TodoFilters from './TodoFilters';
+import useToggle from '../hooks/useToggle';
 
 TodoList.propTypes = {
   todos: PropTypes.array.isRequired,
@@ -19,6 +20,8 @@ TodoList.propTypes = {
 };
 
 function TodoList(props) {
+  const [isFeatureOneVisible, setFeatureOneVisible] = useToggle();
+  const [isFeatureTwoVisible, setFeatureTwoVisible] = useToggle(false);
   const [filter, setFilter] = useState('all');
 
   return (
@@ -80,24 +83,36 @@ function TodoList(props) {
         ))}
       </ul>
 
-      <div className="check-all-container">
-        <div>
-          <TodoCompleteAll completeAllTodos={props.completeAllTodos} />
-        </div>
-
-        <TodoItemsRemaining remaining={props.remaining} />
+      <div className="toggles-container">
+        <button onClick={setFeatureOneVisible} className="button">
+          Feature One
+        </button>
+        <button onClick={setFeatureTwoVisible} className="button">
+          Feature Two
+        </button>
       </div>
 
-      <div className="other-buttons-container">
-        <TodoFilters
-          todosFiltered={props.todosFiltered}
-          filter={filter}
-          setFilter={setFilter}
-        />
-        <div>
-          <TodoClearCompleted clearCompleted={props.clearCompleted} />
+      {isFeatureOneVisible && (
+        <div className="check-all-container">
+          <div>
+            <TodoCompleteAll completeAllTodos={props.completeAllTodos} />
+          </div>
+
+          <TodoItemsRemaining remaining={props.remaining} />
         </div>
-      </div>
+      )}
+      {isFeatureTwoVisible && (
+        <div className="other-buttons-container">
+          <TodoFilters
+            todosFiltered={props.todosFiltered}
+            filter={filter}
+            setFilter={setFilter}
+          />
+          <div>
+            <TodoClearCompleted clearCompleted={props.clearCompleted} />
+          </div>
+        </div>
+      )}
     </>
   );
 }
